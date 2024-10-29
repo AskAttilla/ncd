@@ -5,11 +5,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import './index.css'
+import './css/site.scss'
 
 import Root from "./routes/root";
 import Faq, {loader as faqLoader} from './routes/faq'
-import ErrorPage from "./error-page";
+import Home from './routes/index'
+import ErrorPage from "./components/error-page/error-page";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     element: <Root/>,
     errorElement: <ErrorPage />,
     children: [
+      {index:true, element: <Home />},
       {
         path: "faq",
         element: <Faq />,
@@ -30,5 +32,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
      <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 )

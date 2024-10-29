@@ -1,23 +1,13 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+
+import Menu from '../components/menu/menu.jsx'
+import Header from '../components/header/header.jsx'
 
 export default function Root() {
     return (
       <>
-        <div id="menu">
-          <nav>
-            <ul>
-              <li>
-                <Link to={`/`}>Home</Link>
-              </li>
-              <li>
-                <Link to={`/faq`}>FAQ</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div id="detail">
-            <Outlet/>
-        </div>
+        <Menu />
+        <Outlet/>
       </>
     );
   }

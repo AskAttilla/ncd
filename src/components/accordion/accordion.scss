@@ -1,11 +1,55 @@
 .accordion {
     $self: &;
-    
-    background: red;
 
+    width: 100%;
+    
     &--open {
-        background: green;
+        #{$self}__content-wrapper{
+            grid-template-rows: 1fr;
+        }
+        
+        #{$self}__content-inner{
+            border-right: 5px solid #f18701;
+            border-bottom: 5px solid #f18701;
+        }
     }
 
+    &__button {
+        width: 100%;
+        padding: 0;
+        background-color: #edf2f4;
+        border-left: none;
+        border-bottom: none;
+        border-right: 5px solid transparent;
+        border-top: 5px solid transparent;
+        transition: border-color 0.25s;
+        
+        &:hover {
+            border-right: 5px solid #7678ed;
+            border-top: 5px solid  #7678ed;
+        }
+        &:focus-visible {
+            outline: 4px auto -webkit-focus-ring-color;
+        }
+    }
 
+    &__title {
+        padding: 0 20px;
+        text-align: left;
+        font-size: 1.25rem;
+    }
+
+    &__content-wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms ease;
+    }
+
+    &__content {
+        overflow: hidden;
+    }
+
+    &__content-inner {
+        padding: 20px;
+    }
 }

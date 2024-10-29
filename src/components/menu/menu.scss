@@ -1,0 +1,19 @@
+.menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #edf2f4;
+        
+    &__nav{
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        padding: 0;
+    }
+}

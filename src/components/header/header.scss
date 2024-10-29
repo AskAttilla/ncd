@@ -1,0 +1,14 @@
+.header {
+    background: #3d348b;
+    padding: 10dvh 0;
+
+    &__title {
+        color: white;
+        text-align: center;
+        font-size: 2rem;
+
+        @media screen and (min-width: 800px) {
+            font-size: 3rem;
+        }
+    }
+}
