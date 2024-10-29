@@ -1,5 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 
+import Accordion from "../components/accordion/accordion";
+
 const url = "https://graphql.contentful.com/content/v1/spaces/{SPACE}/environments/{ENVIRONMENT}/?access_token={ACCESS_TOKEN}"
 
 const q =  `query {
@@ -53,17 +55,23 @@ export async function loader() {
       }
     }
 
+    console.log(accordions)
+
     return { pageTitle, accordions } 
 }
 
 export default function Faq() {
     const { pageTitle, accordions } = useLoaderData();
 
-
+  console.log(accordions)
   return (
     <div id="faq">
       <h1>{pageTitle}</h1>
-      {accordions?.map(accordion => JSON.stringify(accordion))}
+      {accordions?.map((accordion) => {
+        console.log(accordion)
+        const {name, text } = {...accordion}
+        console.log(name, "\n", text)
+        return <Accordion {...accordion}/>})}
     </div>
   );
 }

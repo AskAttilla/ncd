@@ -1,0 +1,11 @@
+.accordion {
+    $self: &;
+    
+    background: red;
+
+    &--open {
+        background: green;
+    }
+
+
+}
