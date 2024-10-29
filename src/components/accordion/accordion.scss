@@ -15,10 +15,9 @@
         }
         
         #{$self}__content-inner{
-            border-top: 5px solid transparent;
+            visibility: visible;
             border-right: 5px solid #f18701;
             border-bottom: 5px solid #f18701;
-            border-left: 5px solid transparent;
         }
     }
 
@@ -58,6 +57,11 @@
     }
 
     &__content-inner {
+        visibility: hidden;
         padding: 20px;
+        border-top: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
     }
 }

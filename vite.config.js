@@ -9,5 +9,10 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': process.env
-  }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/tests/setup.js',
+  },
 })
