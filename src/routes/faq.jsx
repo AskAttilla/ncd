@@ -1,8 +1,12 @@
+import React from 'react';
 import { useLoaderData } from "react-router-dom";
 
-import Accordion from "../components/accordion/accordion";
+import { getContentfulEndpoint } from "../utils/apiHelper";
 
-const url = "https://graphql.contentful.com/content/v1/spaces/{SPACE}/environments/{ENVIRONMENT}/?access_token={ACCESS_TOKEN}"
+import ContentWrapper from "../components/content-wrapper/content-wrapper";
+import Accordion from "../components/accordion/accordion";
+import Header from "../components/header/header"
+
 
 const q =  `query {
 	accordionCollection {
@@ -19,11 +23,8 @@ const q =  `query {
 }`
 
 export async function loader() {
-    const endpoint = url.replace("{SPACE}", import.meta.env.VITE_CONTENTFUL_SPACE)
-                        .replace("{ENVIRONMENT}", import.meta.env.VITE_CONTENTFUL_ENVIRONMENT)
-                        .replace("{ACCESS_TOKEN}", import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN)
+    const endpoint = getContentfulEndpoint()
 
-    
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,23 +56,23 @@ export async function loader() {
       }
     }
 
-    console.log(accordions)
-
     return { pageTitle, accordions } 
 }
 
 export default function Faq() {
     const { pageTitle, accordions } = useLoaderData();
 
-  console.log(accordions)
   return (
-    <div id="faq">
-      <h1>{pageTitle}</h1>
-      {accordions?.map((accordion) => {
-        console.log(accordion)
-        const {name, text } = {...accordion}
-        console.log(name, "\n", text)
-        return <Accordion {...accordion}/>})}
-    </div>
+    <>
+      <Header title={pageTitle}/>
+      <ContentWrapper>
+        {!!accordions.length 
+        ? accordions?.map((accordion, index) => (
+          <React.Fragment key={index}>
+            <Accordion {...accordion}/>
+          </React.Fragment>)) 
+        : <p>Fant ingen spørsmål og svar</p>}
+      </ContentWrapper>
+    </>
   );
 }
