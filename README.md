@@ -1,8 +1,8 @@
-# React + Vite
+Minimal setup with Vite and React. Using React Router for client side routing.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Setup env file with these values: 
+```
+VITE_CONTENTFUL_ACCESS_TOKEN: {YOUR_ACCESS_TOKEN}
+VITE_CONTENTFUL_SPACE: {YOUR_SPACE}
+VITE_CONTENTFUL_ENVIRONMENT: {YOUR_ENVIRONMENT}
+```
