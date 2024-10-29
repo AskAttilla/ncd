@@ -1,17 +1,52 @@
 import { useLoaderData } from "react-router-dom";
 
-export async function loader() {
-    let questions = ["first", "second", "third"]
+const url = "https://graphql.contentful.com/content/v1/spaces/{SPACE}/environments/{ENVIRONMENT}/?access_token={ACCESS_TOKEN}"
 
-    return { questions } 
+const q =  `query {
+	accordionCollection {
+    items {
+      title
+      accordionItemsCollection {
+      	items {
+          name
+          text
+        }
+    	}
+    }
+  }
+}`
+
+export async function loader() {
+    const endpoint = url.replace("{SPACE}", import.meta.env.VITE_CONTENTFUL_SPACE)
+                        .replace("{ENVIRONMENT}", import.meta.env.VITE_CONTENTFUL_ENVIRONMENT)
+                        .replace("{ACCESS_TOKEN}", import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN)
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: q })
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch(e => {
+      console.error('Fetch error:', e);
+    });
+       
+
+    return { test: res.data } 
 }
 
 export default function Faq() {
-    const { questions } = useLoaderData();
+    const { test } = useLoaderData();
 
   return (
     <div id="faq">
-        {questions?.map((question)=><p>{question}</p>)}
+      {JSON.stringify(test)}
+      {/* {accordions?.map((question)=><p>{question}</p>)} */}
     </div>
   );
 }
