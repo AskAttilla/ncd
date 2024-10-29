@@ -21,6 +21,7 @@ export async function loader() {
                         .replace("{ENVIRONMENT}", import.meta.env.VITE_CONTENTFUL_ENVIRONMENT)
                         .replace("{ACCESS_TOKEN}", import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN)
 
+    
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,21 +33,37 @@ export async function loader() {
       }
       return response.json();
     })
-    .catch(e => {
-      console.error('Fetch error:', e);
-    });
-       
+    
+    let pageTitle = "Default Title"
+    let accordions = []
+    
+    const accordionCollectionItems = res?.data?.accordionCollection?.items
+    
+    if(accordionCollectionItems && accordionCollectionItems.length > 0) {
+      const firstCollection = accordionCollectionItems[0];
+      
+      if (firstCollection.title) {
+        pageTitle = firstCollection.title
+      }
+      
+      const accordionItemsCollection = firstCollection?.accordionItemsCollection?.items
+      
+      if (accordionItemsCollection && accordionItemsCollection.length > 0) {
+        accordions = accordionItemsCollection
+      }
+    }
 
-    return { test: res.data } 
+    return { pageTitle, accordions } 
 }
 
 export default function Faq() {
-    const { test } = useLoaderData();
+    const { pageTitle, accordions } = useLoaderData();
+
 
   return (
     <div id="faq">
-      {JSON.stringify(test)}
-      {/* {accordions?.map((question)=><p>{question}</p>)} */}
+      <h1>{pageTitle}</h1>
+      {accordions?.map(accordion => JSON.stringify(accordion))}
     </div>
   );
 }
